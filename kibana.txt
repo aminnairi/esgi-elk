@@ -1,0 +1,138 @@
+2. hits attendus: 1594
+GET groupe_2/_search
+{
+    "query": {
+        "match_all": {}
+    }
+}
+
+3. voir 100 hits
+GET groupe_2/_search
+{
+    "size" : 100,
+    "query": {
+        "match_all": {}
+    }
+}
+
+4. hits attendus: 44
+en mai 2017 --- January 08, 2018
+GET groupe_2/_search
+{
+    "query": {
+        "match": {
+            "date": {
+                "query": "may 2017",
+                "operator": "and"
+            }
+        }
+    }
+}
+
+5. hits attendus: 260
+GET groupe_2/_search
+{
+    "query": {
+        "match": {
+            "title": "elastic"
+        }
+    }
+}
+
+6.
+GET groupe_2/_search
+{
+    "query": {
+        "match": {
+            "title": "elastic stack"
+        }
+    }
+}
+Car par défaut en faisant un match il va utiliser la logique "ou",
+donc il va chercher les titres qui ont "elastic" OU "stack" dans son titre
+
+7. hits attendus: 70
+GET groupe_2/_search
+{
+    "query": {
+        "match": {
+            "title": {
+                "query": "elastic stack",
+                "operator": "and"
+            }
+        }
+    }
+}
+
+8. hits attendus: pas précisé
+les blogs qui ont le mot "search " dans leur champ "content ".
+GET groupe_2/_search
+{
+    "query": {
+        "match": {
+            "content": "search"
+        }
+    }
+}
+
+lesblogs qui ont "search " ou "analytics " dans leur champ " content "
+GET groupe_2/_search
+{
+    "query": {
+        "match": {
+            "content": "search analytics"
+        }
+    }
+}
+
+les blogs qui ont "search " et "analytics " dans leur " content "
+GET groupe_2/_search
+{
+    "query": {
+        "match": {
+            "title": {
+                "query": "search analytics",
+                "operator": "and"
+            }
+        }
+    }
+}
+
+9.
+
+10. hits attendus: pas précisé (apparemment 41 d'après discord)
+GET groupe_2/_search
+{
+    "query": {
+        "match_phrase": {
+            "content": {
+                "query": "search analytics",
+                "slop": 1
+            }
+        }
+    }
+}
+
+11. hits attendus: 374
+GET groupe_2/_search
+{
+    "query": {
+        "match": {
+            "content": "performance optimizations improvements"
+        }
+    }
+}
+
+12. hits attendus: 82
+Which blogs have a content field that includes at least 2 of the terms performance or optimizations or improvements?
+GET groupe_2/_search
+{
+    "query": {
+        "match": {
+            "content": {
+                "query": "performance optimizations improvements"
+                "minimum_should_match": 2
+            }
+        }
+    }
+}
