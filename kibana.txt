@@ -142,12 +142,16 @@ GET groupe_2/_search
 {
     "query": {
         "bool": {
-            "match": {
-                "content": {
-                    "query": "performance optimizations improvements",
-                        "operator": "and"
+            "must": [
+                {
+                    "match": {
+                        "content": {
+                            "query": "performance optimizations improvements",
+                                "operator": "and"
+                        }
+                    }
                 }
-            },
+            ],
             "should": [
                 {
                     "match": {
