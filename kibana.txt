@@ -90,7 +90,7 @@ GET groupe_2/_search
 {
     "query": {
         "match": {
-            "title": {
+            "content": {
                 "query": "search analytics",
                 "operator": "and"
             }
@@ -130,9 +130,41 @@ GET groupe_2/_search
     "query": {
         "match": {
             "content": {
-                "query": "performance optimizations improvements"
+                "query": "performance optimizations improvements",
                 "minimum_should_match": 2
             }
+        }
+    }
+}
+
+13. hits attendu: 6 (3 à afficher)
+GET groupe_2/_search
+{
+    "query": {
+        "bool": {
+            "match": {
+                "content": {
+                    "query": "performance optimizations improvements",
+                        "operator": "and"
+                }
+            },
+            "should": [
+                {
+                    "match": {
+                        "content": "performance"
+                    }
+                },
+                {
+                    "match": {
+                        "content": "optimizations"
+                    }
+                },
+                {
+                    "match": {
+                        "content": "improvements"
+                    }
+                }
+            ]
         }
     }
 }
