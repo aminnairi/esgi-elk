@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "@elastic/elasticsearch": "^7.7.1",
+    "axios": "^0.19.2",
+    "cross-blob": "^1.2.3",
+    "csv-parser": "^2.3.2",
+    "node-fetch": "^2.6.0"
+  }
+}
